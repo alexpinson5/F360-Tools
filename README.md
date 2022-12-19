@@ -1,2 +1,2 @@
 # F360-Tools
-Tool compiler script for storing a list of used tools in a Google Sheet
+Fusion 360 tool compiler script for storing a list of used tools across multiple production setups in a single Google Sheet
