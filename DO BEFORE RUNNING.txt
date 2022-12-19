@@ -1,0 +1,11 @@
+If installing on a new computer, you will need to update the run.bat file.
+
+How to:
+1) Right-click run.bat -> click 'edit'
+2) Search python.exe in the Windows search bar (if it is not installed, install Python via the Windows store)
+3) Right click python.exe in the search bar -> open file location
+4) Right click python.exe in the file manager -> click Properties
+5) Copy the file path from the properties window. This gets pasted in the first set of parenthesis in the run.bat file. Make sure to add "\python.exe" to the end of the file path.
+6) Open the Script folder and right click CompileTools.py -> Properties again.
+7) Copy the file path from here and paste it in the second set of parenthesis, making sure to add "\CompileTools.py" to the end of the file path.
+8) Save and you're good to go!
