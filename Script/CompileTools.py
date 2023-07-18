@@ -14,6 +14,7 @@ import subprocess
 import pkg_resources
 import os
 import os.path
+import time
 
 # install additional modules if not included
 required = {'bs4', 'google-api-python-client', 'google-auth-httplib2', 'google-auth-oauthlib', 'xlsxwriter'}
@@ -21,7 +22,7 @@ installed = {pkg.key for pkg in pkg_resources.working_set}
 missing = required - installed
 if missing:
     python = sys.executable
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'bs4'])   #may have to change to 'beautifulsoup4' instead of 'bs4'
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'bs4'])   #may have to change to beautifulsoup4
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'google-api-python-client'])
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'google-auth-httplib2'])
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'google-auth-oauthlib'])
@@ -42,10 +43,6 @@ import google.auth
 
 # set up directory name for setup sheets
 directory = 'Setup Sheets'
-
-# The ID and range of a sample spreadsheet.
-SPREADSHEET_ID = 'REPLACE THIS TEXT WITH YOUR SPREADSHEET ID' # you can get this from the URL when the file is open in your browser
-RANGE_NAME = 'REPLACE THIS TEXT WITH THE SHEET NAME!A2:B6' # this is in the bottom left corner with the Google Sheet open. Do not replace '!A2:B6'
  
 # loop through files & folders in that directory to compile lists
 masterTools = [] # prepare main tool list (single instance of each tool)
@@ -98,6 +95,10 @@ print(fileNames) # debug only
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+
+# The ID and range of a sample spreadsheet.
+SPREADSHEET_ID = '17L-dsJap0Fd-BYfsHzqd3uPOI93jBQiB_DBD19sLlQg'
+RANGE_NAME = 'Master Tool List!A2:B6'
 
 # get necessary google credentials
 creds = None
@@ -206,4 +207,5 @@ if __name__ == '__main__':
         #print(setupInsert)
         batch_update_values(SPREADSHEET_ID, "B" + str(j + 2) + ":" + xlsxwriter.utility.xl_col_to_name(len(setupInsert) + 1) + str(j + 2), "USER_ENTERED", [setupInsert]) # write setup sheet list row
         j += 1
+        time.sleep(1) #intentionally slowing down to avoid rate limit
     batch_update_values(SPREADSHEET_ID, "A2:A" + str(len(masterTools) + 1), "USER_ENTERED", masterToolsInsert) # write tool list column
